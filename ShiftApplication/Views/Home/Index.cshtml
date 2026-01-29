@@ -1,0 +1,58 @@
+﻿@{
+    ViewData["Title"] = "Home";
+    Layout = "_Layout"; // Make sure _AccountLayout.cshtml exists in Views/Shared
+}
+
+<div class="container mt-5">
+
+    <!-- Hero Section -->
+    <div class="jumbotron p-5 rounded bg-light text-center mb-5">
+        <h1 class="display-4">Welcome to ShiftApplication</h1>
+        <p class="lead">Manage your shifts, users, and services easily.</p>
+        <hr class="my-4">
+        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg me-2">Login</a>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg">Register</a>
+    </div>
+
+    <!-- Sample Features Section -->
+    <div class="row">
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">User Management</h5>
+                    <p class="card-text">Easily add, edit, and track users in the system.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Shift Scheduling</h5>
+                    <p class="card-text">Create and manage shifts with a simple interface.</p>
+                </div>
+            </div>
+        </div>
+
+        <div class="col-md-4 mb-4">
+            <div class="card h-100 shadow-sm">
+                <div class="card-body text-center">
+                    <h5 class="card-title">Reports & Analytics</h5>
+                    <p class="card-text">View reports and analytics to track performance.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Footer CTA Section -->
+    <div class="mt-5 p-5 text-center bg-light rounded">
+        <h4>Get Started Today</h4>
+        <p>Create your account and streamline your shift management now.</p>
+        <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg">Register Now</a>
+    </div>
+
+</div>
+
+@section Scripts {
+    <!-- Optional additional scripts -->
+}
