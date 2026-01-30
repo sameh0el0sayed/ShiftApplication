@@ -1,0 +1,46 @@
+﻿@using ShiftApplication.ViewModels
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@model ShiftApplication.ViewModels.ShiftLogViewModel
+@{
+    ViewData["Title"] = "Log Shift Event";
+    Layout = "_Layout";
+}
+
+<div class="container py-5">
+    <div class="row justify-content-center">
+        <div class="col-md-8">
+            <div class="card shadow-sm">
+                <div class="card-header bg-dark text-white">
+                    <h5 class="mb-0">Add Shift Log</h5>
+                </div>
+                <div class="card-body">
+                    <form asp-action="Log" method="post">
+                        <input type="hidden" asp-for="ShiftId" />
+
+                        <div class="mb-3">
+                            <label asp-for="LogType" class="form-label"></label>
+                            <select asp-for="LogType" class="form-select"
+                                    asp-items="Html.GetEnumSelectList<LogType>()">
+                            </select>
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="DateTime" class="form-label"></label>
+                            <input asp-for="DateTime" type="datetime-local" class="form-control" />
+                        </div>
+
+                        <div class="mb-3">
+                            <label asp-for="Description" class="form-label"></label>
+                            <textarea asp-for="Description" rows="4" class="form-control"></textarea>
+                        </div>
+
+                        <div class="d-flex justify-content-end gap-2">
+                            <a asp-action="Index" class="btn btn-outline-secondary">Cancel</a>
+                            <button class="btn btn-primary">Save Log</button>
+                        </div>
+                    </form>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>

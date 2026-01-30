@@ -1,0 +1,153 @@
+﻿@model ShiftApplication.ViewModels.ShiftReportViewModel
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+
+@{
+    ViewData["Title"] = "Shift Report";
+    Layout = "_Layout";
+}
+
+<div class="container py-4">
+
+    <!-- Header -->
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Shift Report</h2>
+        <div>
+            <a asp-action="Index" class="btn btn-outline-secondary me-2">
+                <i class="bi bi-arrow-left"></i> Back
+            </a>
+            <a asp-action="DownloadReport" asp-route-id="@Model.ShiftId" class="btn btn-success">
+                <i class="bi bi-file-earmark-pdf me-1"></i> Download PDF
+            </a>
+        </div>
+    </div>
+
+    <!-- Shift Summary -->
+    <div class="row g-4 mb-4">
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Start Time</h6>
+                    <p class="fw-semibold">@Model.StartTime.ToString("dd MMM yyyy, hh:mm tt")</p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">End Time</h6>
+                    <p class="fw-semibold">
+                        @(Model.EndTime.HasValue? Model.EndTime.Value.ToString("dd MMM yyyy, hh:mm tt") : "-")
+                    </p>
+                </div>
+            </div>
+        </div>
+        <div class="col-md-4">
+            <div class="card shadow-sm">
+                <div class="card-body">
+                    <h6 class="text-muted">Supervisor</h6>
+                    <p class="fw-semibold">@Model.SupervisorName ?? "-"</p>
+                </div>
+            </div>
+        </div>
+    </div>
+
+    <!-- Accidents Section -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-danger text-white fw-semibold">
+            Accidents
+        </div>
+        <div class="card-body p-0">
+            @if (Model.Accidents == null || !Model.Accidents.Any())
+            {
+                <div class="p-3 text-center text-muted">No accidents recorded</div>
+            }
+            else
+            {
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Time</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var a in Model.Accidents)
+                        {
+                            <tr>
+                                <td>@a.DateTime.ToString("dd MMM yyyy, hh:mm tt")</td>
+                                <td>@a.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <!-- Incidents Section -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-warning text-dark fw-semibold">
+            Incidents
+        </div>
+        <div class="card-body p-0">
+            @if (Model.Incidents == null || !Model.Incidents.Any())
+            {
+                <div class="p-3 text-center text-muted">No incidents recorded</div>
+            }
+            else
+            {
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Time</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var i in Model.Incidents)
+                        {
+                            <tr>
+                                <td>@i.DateTime.ToString("dd MMM yyyy, hh:mm tt")</td>
+                                <td>@i.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+    <!-- Manpower Details Section -->
+    <div class="card shadow-sm mb-3">
+        <div class="card-header bg-info text-white fw-semibold">
+            Manpower Details
+        </div>
+        <div class="card-body p-0">
+            @if (Model.ManpowerDetails == null || !Model.ManpowerDetails.Any())
+            {
+                <div class="p-3 text-center text-muted">No manpower details recorded</div>
+            }
+            else
+            {
+                <table class="table table-hover mb-0">
+                    <thead class="table-light">
+                        <tr>
+                            <th>Time</th>
+                            <th>Description</th>
+                        </tr>
+                    </thead>
+                    <tbody>
+                        @foreach (var m in Model.ManpowerDetails)
+                        {
+                            <tr>
+                                <td>@m.DateTime.ToString("dd MMM yyyy, hh:mm tt")</td>
+                                <td>@m.Description</td>
+                            </tr>
+                        }
+                    </tbody>
+                </table>
+            }
+        </div>
+    </div>
+
+</div>

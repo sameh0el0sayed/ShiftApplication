@@ -1,58 +1,72 @@
-﻿@{
-    ViewData["Title"] = "Home";
-    Layout = "_Layout"; // Make sure _AccountLayout.cshtml exists in Views/Shared
+﻿@model IEnumerable<ShiftApplication.Models.Shift>
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
+@{
+    ViewData["Title"] = "Shift Dashboard";
+    Layout = "_Layout";
 }
 
-<div class="container mt-5">
+<div class="container py-4">
+     
+    <div class="d-flex justify-content-between align-items-center mb-4">
+        <h2 class="fw-bold">Shift Dashboard</h2>
 
-    <!-- Hero Section -->
-    <div class="jumbotron p-5 rounded bg-light text-center mb-5">
-        <h1 class="display-4">Welcome to ShiftApplication</h1>
-        <p class="lead">Manage your shifts, users, and services easily.</p>
-        <hr class="my-4">
-        <a asp-controller="Account" asp-action="Login" class="btn btn-primary btn-lg me-2">Login</a>
-        <a asp-controller="Account" asp-action="Register" class="btn btn-outline-secondary btn-lg">Register</a>
+        <a asp-action="Create" class="btn btn-success">
+            <i class="bi bi-plus-circle me-1"></i> New Shift
+        </a>
     </div>
 
-    <!-- Sample Features Section -->
-    <div class="row">
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">User Management</h5>
-                    <p class="card-text">Easily add, edit, and track users in the system.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Shift Scheduling</h5>
-                    <p class="card-text">Create and manage shifts with a simple interface.</p>
-                </div>
-            </div>
-        </div>
-
-        <div class="col-md-4 mb-4">
-            <div class="card h-100 shadow-sm">
-                <div class="card-body text-center">
-                    <h5 class="card-title">Reports & Analytics</h5>
-                    <p class="card-text">View reports and analytics to track performance.</p>
-                </div>
-            </div>
+    <div class="card shadow-sm">
+        <div class="card-body">
+            <table class="table table-hover align-middle">
+                <thead class="table-light">
+                    <tr>
+                        <th>Start</th>
+                        <th>Supervisor</th>
+                        <th>Status</th>
+                        <th class="text-end">Actions</th>
+                    </tr>
+                </thead>
+                <tbody>
+                    @foreach (var shift in Model)
+                    {
+                        <tr>
+                            <td>@shift.StartTime.ToString("dd MMM yyyy, hh:mm tt")</td>
+                            <td>@(shift.Supervisor?.UserName ?? "-")</td>
+                            <td>
+                                @if (shift.IsClosed)
+                                {
+                                    <span class="badge bg-danger">Closed</span>
+                                }
+                                else if (shift.IsClaimed)
+                                {
+                                    <span class="badge bg-warning text-dark">Claimed</span>
+                                }
+                                else
+                                {
+                                    <span class="badge bg-success">Open</span>
+                                }
+                            </td>
+                            <td class="text-end">
+                                @if (!shift.IsClaimed)
+                                {
+                                    <a asp-action="Claim" asp-route-id="@shift.Id" class="btn btn-sm btn-primary">Claim</a>
+                                }
+                                else if (!shift.IsClosed)
+                                {
+                                    <a asp-action="Log" asp-route-shiftId="@shift.Id" class="btn btn-sm btn-outline-secondary">Log</a>
+                                    <form asp-action="Close" asp-route-id="@shift.Id" method="post" class="d-inline">
+                                        <button class="btn btn-sm btn-danger">Close</button>
+                                    </form>
+                                }
+                                else
+                                {
+                                    <a asp-action="Report" asp-route-id="@shift.Id" class="btn btn-sm btn-outline-dark">Report</a>
+                                }
+                            </td>
+                        </tr>
+                    }
+                </tbody>
+            </table>
         </div>
     </div>
-
-    <!-- Footer CTA Section -->
-    <div class="mt-5 p-5 text-center bg-light rounded">
-        <h4>Get Started Today</h4>
-        <p>Create your account and streamline your shift management now.</p>
-        <a asp-controller="Account" asp-action="Register" class="btn btn-primary btn-lg">Register Now</a>
-    </div>
-
 </div>
-
-@section Scripts {
-    <!-- Optional additional scripts -->
-}
