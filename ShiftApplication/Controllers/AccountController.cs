@@ -20,7 +20,6 @@ namespace ShiftApplication.Controllers
         [HttpGet]
         public IActionResult Register() => View();
 
-        // POST
         [HttpPost]
         public async Task<IActionResult> Register(RegisterViewModel model)
         {

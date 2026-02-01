@@ -261,7 +261,6 @@ namespace ShiftApplication.Controllers
             document.Add(new Paragraph($"Status: {(shift.IsClosed ? "Closed" : shift.IsClaimed ? "Claimed" : "Open")}", normalFont));
             document.Add(new Paragraph("\n"));
 
-            // Function to create table for logs
             void AddLogSection(string sectionName, IEnumerable<dynamic> logs)
             {
                 document.Add(new Paragraph(sectionName, headerFont));
@@ -270,9 +269,8 @@ namespace ShiftApplication.Controllers
                 if (logs.Any())
                 {
                     var table = new PdfPTable(2) { WidthPercentage = 100 };
-                    table.SetWidths(new float[] { 25, 75 }); // Time / Description
+                    table.SetWidths(new float[] { 25, 75 }); 
 
-                    // Header row
                     table.AddCell(new PdfPCell(new Phrase("Time", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
                     table.AddCell(new PdfPCell(new Phrase("Description", headerFont)) { BackgroundColor = BaseColor.LIGHT_GRAY });
 
