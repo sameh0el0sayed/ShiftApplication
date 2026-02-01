@@ -1,6 +1,7 @@
 ﻿@using Microsoft.AspNetCore.Identity
 @inject SignInManager<IdentityUser> SignInManager
 @inject UserManager<IdentityUser> UserManager
+@addTagHelper *, Microsoft.AspNetCore.Mvc.TagHelpers
 
 <!DOCTYPE html>
 <html lang="en">
@@ -57,7 +58,7 @@
                             </a>
                             <ul class="dropdown-menu dropdown-menu-end">
                                 <li>
-                                    <form asp-area="Identity" asp-page="/Account/Logout"
+                                    <form asp-controller="Account" asp-action="Logout"
                                           asp-route-returnUrl="@Url.Action("Login", "Account")"
                                           method="post">
                                         <button type="submit" class="dropdown-item">

@@ -52,3 +52,7 @@ CodeCoverage/
 *.VisualState.xml
 TestResult.xml
 nunit-*.xml
+/.vs/ShiftApplication/CopilotIndices/18.0.988.22099
+/.vs/ShiftApplication.slnx/v18/.suo
+/.vs/ShiftApplication.slnx/v18/DocumentLayout.backup.json
+/.vs/ShiftApplication.slnx/v18/DocumentLayout.json
